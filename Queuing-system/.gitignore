@@ -1,0 +1,14 @@
+# Node / package files
+node_modules/
+server/node_modules/
+package-lock.json
+npm-debug.log*
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local runtime output
+server/data/uploads/*
+server/data/*.log

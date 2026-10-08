@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad settings - Waiting Area Display</title>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header>
+    <h1>Waiting area ad settings</h1>
+    <div id="save-status"></div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Hospital branding</h2>
+      <p class="hint">Change the display name, seasonal slogan, and logo without editing the display files.</p>
+      <div class="branding-grid">
+        <label>Hospital name
+          <input type="text" id="hospital-name-input" placeholder="Mildmay Hospital Uganda">
+        </label>
+        <label>Slogan
+          <input type="text" id="hospital-slogan-input" placeholder="Care with compassion">
+        </label>
+        <label>Seasonal logo
+          <input type="file" id="hospital-logo-input" accept="image/*">
+          <img id="hospital-logo-preview" class="branding-logo-preview" hidden alt="Hospital logo preview">
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>System background</h2>
+      <p class="hint">Choose a solid colour, gradient, or seasonal background picture for the display.</p>
+      <div class="background-grid">
+        <label>Background type
+          <select id="background-type">
+            <option value="solid">Solid colour</option>
+            <option value="gradient">Gradient</option>
+            <option value="image">Picture</option>
+          </select>
+        </label>
+        <label>Colour 1
+          <input type="color" id="background-color-1">
+        </label>
+        <label>Colour 2
+          <input type="color" id="background-color-2">
+        </label>
+        <label>Background picture
+          <input type="file" id="background-image-input" accept="image/*">
+          <img id="background-image-preview" class="background-image-preview" hidden alt="Background preview">
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Display format</h2>
+      <p class="hint">Controls how ads appear alongside the token board on every screen. The token board is never fully hidden in any format.</p>
+      <div class="format-options" id="format-options"></div>
+
+      <div id="side-placement-settings" class="placement-options" hidden>
+        <span class="placement-label">Ad position</span>
+        <button type="button" class="placement-option" data-placement="left">Left</button>
+        <button type="button" class="placement-option" data-placement="right">Right</button>
+        <button type="button" class="placement-option" data-placement="both">Both</button>
+      </div>
+
+      <div id="lower-third-settings" class="sub-settings" hidden>
+        <label>Show every (seconds)
+          <input type="number" id="lt-every" min="10" step="5">
+        </label>
+        <label>Visible for (seconds)
+          <input type="number" id="lt-visible" min="3" step="1">
+        </label>
+      </div>
+
+      <label>Slide duration (seconds, for side-by-side / L-bar)
+        <input type="number" id="slide-duration" min="3" step="1">
+      </label>
+      <div class="timing-grid">
+        <label>Bottom scroll speed (seconds per loop)
+          <input type="number" id="ticker-speed" min="5" step="1">
+        </label>
+        <label>Token page hold (seconds)
+          <input type="number" id="token-hold" min="1" step="1">
+        </label>
+        <label>Token scroll transition (seconds)
+          <input type="number" id="token-transition" min="0.2" step="0.1">
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Ad terminals</h2>
+      <p class="hint">Create scheduled ads for each terminal: left, right, and bottom. Images can be up to 40MB and videos up to 80MB. Bottom ads are text-only.</p>
+      <div class="creative-specs">
+        <strong>Creative specifications for the side terminals</strong><br>
+        Recommended flyer canvas: <strong>1080 x 2291 px portrait (DL ratio, 99 x 210 mm)</strong>. Each terminal uses one reusable ad container: the top 75% is reserved for the flyer/video and the bottom 25% for the QR code. Keep faces, logos, and important wording inside the centre 80% safe area. Use PNG/JPEG/WEBP for stills and MP4/WebM for video; use high-contrast artwork and avoid placing text close to the crop edges. QR codes should be generated from a short URL and remain dark on a white background for reliable scanning from reception distance. Maximum upload size: <strong>40MB images, 80MB videos</strong>. Images show for their configured duration; videos remain visible until playback completes.
+      </div>
+      <div id="terminal-groups"></div>
+    </section>
+
+    <button id="save-all" type="button" class="primary">Save changes</button>
+  </main>
+
+  <template id="slide-template">
+    <div class="slide-card">
+      <div class="slide-card-header">
+        <span class="slide-number"></span>
+        <button type="button" class="remove-slide">Remove</button>
+      </div>
+      <label>Title
+        <input type="text" class="f-title" placeholder="Free health screening camp">
+      </label>
+      <label>Message
+        <textarea class="f-body" rows="2" placeholder="Every Saturday this month, main lobby, 9am to 1pm"></textarea>
+      </label>
+      <div class="row">
+        <div class="col">
+          <label>Graphic or video
+            <input type="file" class="f-image-input" accept="image/*,video/*">
+          </label>
+          <img class="f-image-preview" hidden>
+          <video class="f-video-preview" controls muted playsinline hidden></video>
+        </div>
+        <div class="col">
+          <label>QR code target URL
+            <input type="url" class="f-qr" placeholder="https://yourhospital.org/screening">
+          </label>
+          <div class="f-qr-preview"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="js/vendor/qrcode.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
